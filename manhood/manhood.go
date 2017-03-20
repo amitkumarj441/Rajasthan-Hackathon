@@ -152,135 +152,135 @@ return randomUserJson, nil
 
 //addThanks function enables user to receive a "thank", adds points according to the thank level, and adds the "thank"
 //to the person's thank list(name of "thanker", type and message).
-func (t *HumanityChaincode) addThanks(stub *shim.ChaincodeStub,function string, args []string) ([]byte, error) {
-	var userID string
-	var pointsToAdd int
+func (t *ManhoodChaincode) addThanks(stub *shim.ChaincodeStub,function string, args []string) ([]byte, error) {
+var userID string
+var pointsToAdd int
 
-	//check arguments number and type
-	if len(args) != 2 {
-	return nil, errors.New("Incorrect number of arguments. Expecting 2")
-	}
-	userID = args[0]
-	//convert JSON to struct
-	thankJson := []byte(args[1])
+//check arguments number and type
+if len(args) != 2 {
+return nil, errors.New("Incorrect number of arguments. Expecting 2")
+}
+userID = args[0]
+//convert JSON to struct
+thankJson := []byte(args[1])
 
-	var thankObj thank
+var thankObj thank
 
-	err := json.Unmarshal(thankJson, &thankObj)
-	if err != nil {
-	return nil, errors.New("Invalid thank JSON")
-	}
+err := json.Unmarshal(thankJson, &thankObj)
+if err != nil {
+return nil, errors.New("Invalid thank JSON")
+}
 
-	//simple sanity check (message part can be ""):
-	if thankObj.ThankType != "ta" && thankObj.ThankType != "thankyou" && thankObj.ThankType != "bigthanks"{
-	return nil, errors.New("Invalid thank type! Valids are: ta(1), thankyou(5), bigthanks(10)")
-	}
+//simple sanity check (message part can be ""):
+if thankObj.ThankType != "ta" && thankObj.ThankType != "thankyou" && thankObj.ThankType != "bigthanks"{
+return nil, errors.New("Invalid thank type! Valids are: ta(1), thankyou(5), bigthanks(10)")
+}
 
-	if thankObj.Thanker =="" {
-	return nil, errors.New("No thanker name!")
-	}
+if thankObj.Thanker =="" {
+return nil, errors.New("No thanker name!")
+}
 
-	//calculate how many points to add according to "thank level":
-	switch thankObj.ThankType {
+//calculate how many points to add according to "thank level":
+switch thankObj.ThankType {
 	case "ta" : pointsToAdd = small
 	case "thankyou" : pointsToAdd = medium
 	case "bigthanks" : pointsToAdd = large
-	}
+}
 
-	//get entity data from ledger:
-	entityJSON, err := stub.GetState(userID)
-	if entityJSON == nil {
-	return nil, errors.New("Error: No account exists for user.")
-	}
+//get entity data from ledger:
+entityJSON, err := stub.GetState(userID)
+if entityJSON == nil {
+return nil, errors.New("Error: No account exists for user.")
+}
 
-	//convert JSON to struct
-	entityObj := entity{}
-	err = json.Unmarshal(entityJSON, &entityObj)
-	if err != nil {
-	return nil, errors.New("Invalid entity data pulled from ledger.")
-	}
+//convert JSON to struct
+entityObj := entity{}
+err = json.Unmarshal(entityJSON, &entityObj)
+if err != nil {
+return nil, errors.New("Invalid entity data pulled from ledger.")
+}
 
-	//add points:
-	entityObj.Balance = entityObj.Balance + pointsToAdd
+//add points:
+entityObj.Balance = entityObj.Balance + pointsToAdd
 
 
-	//add the thankObject to the thank array of the entityObject:
-	entityObj.AddThank(thankObj)
-	entityJSON = nil
-	entityJSON, err = json.Marshal(entityObj)
+//add the thankObject to the thank array of the entityObject:
+entityObj.AddThank(thankObj)
+entityJSON = nil
+entityJSON, err = json.Marshal(entityObj)
 
-	if err != nil || entityJSON == nil {
-	return nil, errors.New("Converting entity struct to JSON failed")
-	}
+if err != nil || entityJSON == nil {
+return nil, errors.New("Converting entity struct to JSON failed")
+}
 
-	//write entity back to ledger
-	err = stub.PutState(userID, entityJSON)
-	if err != nil {
-	return nil, errors.New("Writing updated entity to ledger failed")
-	}
-	jsonResp := "{\"msg\": \"Thank added\"}"
-	fmt.Printf("Invoke Response:%s\n", jsonResp)
-	return []byte(jsonResp), nil
+//write entity back to ledger
+err = stub.PutState(userID, entityJSON)
+if err != nil {
+return nil, errors.New("Writing updated entity to ledger failed")
+}
+jsonResp := "{\"msg\": \"Thank added\"}"
+fmt.Printf("Invoke Response:%s\n", jsonResp)
+return []byte(jsonResp), nil
 
-	}
+}
 
-	//Invoke function to invoke addThanks, and getRandomUser functions
-	func (t *HumanityChaincode) Invoke(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
-	if function == "addThanks" {
-	//Add points to a member
-	return t.addThanks(stub,function, args)
-	}
-	return nil, errors.New("Received unknown function invocation")
-	}
+//Invoke function to invoke addThanks, and getRandomUser functions
+func (t *ManhoodChaincode) Invoke(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
+if function == "addThanks" {
+//Add points to a member
+return t.addThanks(stub,function, args)
+}
+return nil, errors.New("Received unknown function invocation")
+}
 
-	//getUser queries the ledger for a given ID and returns the whole JSON for the userID
-	func (t *HumanityChaincode) getUser(stub *shim.ChaincodeStub,function string,args []string) ([]byte, error) {
-	if len(args) != 1 {
-	return nil, errors.New("Invalid number of arguments, expected 1")
-	}
-	userID := args[0]
-	//get user data from ledger
-	dataJson, err := stub.GetState(userID)
-	if dataJson == nil || err != nil {
-	return nil, errors.New("Cannot get user data from chain.")
-	}
+//getUser queries the ledger for a given ID and returns the whole JSON for the userID
+func (t *ManhoodChaincode) getUser(stub *shim.ChaincodeStub,function string,args []string) ([]byte, error) {
+if len(args) != 1 {
+return nil, errors.New("Invalid number of arguments, expected 1")
+}
+userID := args[0]
+//get user data from ledger
+dataJson, err := stub.GetState(userID)
+if dataJson == nil || err != nil {
+return nil, errors.New("Cannot get user data from chain.")
+}
 
-	fmt.Printf("Query Response: %s\n", dataJson)
-	return dataJson, nil
-	}
+fmt.Printf("Query Response: %s\n", dataJson)
+return dataJson, nil
+}
 
-	//getKeys queries the ledger for all user keys and returns it as a JSON
-	func (t *HumanityChaincode) getKeys(stub *shim.ChaincodeStub,function string,args []string) ([]byte, error) {
-	if len(args) != 0 {
-	return nil, errors.New("Invalid number of arguments, expected 0")
-	}
-	//get list of keys from ledger
-	keysJSON, err := stub.GetState("keys")
-	if keysJSON == nil || err != nil {
-	return nil, errors.New("Cannot user list data from chain.")
-	}
+//getKeys queries the ledger for all user keys and returns it as a JSON
+func (t *ManhoodChaincode) getKeys(stub *shim.ChaincodeStub,function string,args []string) ([]byte, error) {
+if len(args) != 0 {
+return nil, errors.New("Invalid number of arguments, expected 0")
+}
+//get list of keys from ledger
+keysJSON, err := stub.GetState("keys")
+if keysJSON == nil || err != nil {
+return nil, errors.New("Cannot user list data from chain.")
+}
 
-	fmt.Printf("Query Response: %s\n", keysJSON)
-	return keysJSON, nil
-	}
+fmt.Printf("Query Response: %s\n", keysJSON)
+return keysJSON, nil
+}
 
-	//query function to return a user, or a list of all user's keys
-	func (t *HumanityChaincode) Query(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
-	if function == "getUser" {
-	//Add points to a member
-	return t.getUser(stub, function, args)
-	} else if function == "getKeys" {
-	return t.getKeys(stub, function, args)
-	} else if function == "getRandomUser" {
-        return t.getRandomUser(stub,function, args)
-        }
-	return nil, errors.New("Received unknown function invocation")
-	}
+//query function to return a user, or a list of all user's keys
+func (t *ManhoodChaincode) Query(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
+if function == "getUser" {
+//Add points to a member
+return t.getUser(stub, function, args)
+} else if function == "getKeys" {
+return t.getKeys(stub, function, args)
+} else if function == "getRandomUser" {
+return t.getRandomUser(stub,function, args)
+}
+return nil, errors.New("Received unknown function invocation")
+}
 
-	//main function to start chaincode
-	func main() {
-		err := shim.Start(new(HumanityChaincode))
-		if err != nil {
-			fmt.Printf("Error starting Humanity chaincode: %s", err)
-		}
+//main function to start chaincode
+func main() {
+err := shim.Start(new(ManhoodChaincode))
+if err != nil {
+fmt.Printf("Error starting Manhood chaincode: %s", err)
+}
 }
