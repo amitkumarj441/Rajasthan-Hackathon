@@ -20,7 +20,7 @@ export GOROOT=/root/go
 export GOPATH=/root/git
 export RESTPATH=$GOPATH/src/github.com/hyperledger/fabric/core/rest
 export HLDGPATH=$GOPATH/src/github.com/hyperledger/fabric/build/bin
-export CCROOT=/root/humanity
+export CCROOT=/root/manhood
 
 RED='\033[0;31m'
 CYAN='\033[0;36m'
@@ -70,7 +70,7 @@ else
 fi
 
 #Copy most recent chaincode to Fabric handler
-cd $CCROOT/humanity
+cd $CCROOT/manhood
 cp -u humanity.go ~/git/src/github.com/hyperledger/fabric/examples/chaincode/go/humanity/humanity.go
 
 echo -e "${CYAN}Environment ready for HSBN${NC}"
@@ -132,8 +132,3 @@ http-server -a 0.0.0.0 -p 5554 --cors  & #> $CCROOT/logs/rest-server.log 2>&1 &
 
 echo
 echo -e "${CYAN}High Security Bussiness Network Simulation ready.${NC}"
-
-
-
-
-
