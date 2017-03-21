@@ -13,7 +13,7 @@ export GOPATH=/root/git
 export HLDGPATH=$GOPATH/src/github.com/hyperledger/fabric/build/bin 
 export PATH=$PATH:$GOPATH/src/github.com/hyperledger/fabric 
 export PATH=$PATH:/root/git/src/github.com/hyperledger/fabric/build/bin
-export CCROOT=/root/humanity
+export CCROOT=/root/manhood
 
 RED='\033[0;31m'
 CYAN='\033[0;36m'
