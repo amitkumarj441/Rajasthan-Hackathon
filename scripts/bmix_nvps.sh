@@ -14,7 +14,7 @@ export GOPATH=/root/git
 export HLDGPATH=$GOPATH/src/github.com/hyperledger/fabric/build/bin 
 export PATH=$PATH:$GOPATH/src/github.com/hyperledger/fabric 
 export PATH=$PATH:/root/git/src/github.com/hyperledger/fabric/build/bin
-export CCROOT=/root/humanity
+export CCROOT=/root/manhood
 
 
 
@@ -29,10 +29,9 @@ Delete all previous values in Ledger Database...
 rm -rf /var/hyperledger/production
 	
 echo Docker clean up: 
-docker stop $(docker ps -a -q) #stop all containers 
-docker rm $(docker ps -a -q) #remove all containers 
-docker rmi $(docker images | grep dev-test) > /dev/null 2>&1 #remove all dev-test images 
-
+docker stop $(docker ps -a -q) 					#stop all containers 
+docker rm $(docker ps -a -q) 					#remove all containers 
+docker rmi $(docker images | grep dev-test) > /dev/null 2>&1 	#remove all dev-test images 
 
 cd $HLDGPATH
 #Start non validating peers, each with its own .env file
