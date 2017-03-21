@@ -55,6 +55,8 @@ Since the Fabric project is a Go project, you'll need to clone the Fabric repo t
    - `mkdir -p github.com/hyperledger`
    - `cd github.com/hyperledger`
 
+Before proceeding with above steps, follow `Setting your $GOPATH` section
+
   ### Setting your $GOPATH
   Define these environment variables in your ~/.bashrc
    -  `export GOROOT=/usr/local/go`
