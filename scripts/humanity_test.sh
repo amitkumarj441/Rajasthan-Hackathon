@@ -37,7 +37,7 @@ Banner () {
 export GOROOT=/root/go
 export GOPATH=/root/git
 export HLDGPATH=$GOPATH/src/github.com/hyperledger/fabric/build/bin
-export CCROOT=/root/humanity
+export CCROOT=/root/manhood
 
 GREEN='\033[0;32m'
 RED='\033[0;31m'
