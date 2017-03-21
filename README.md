@@ -69,7 +69,7 @@ Recall that we are using `Gerrit` for source control, which has its own internal
       git clone ssh://LFID@gerrit.hyperledger.org:29418/fabric && scp -p -P 29418 LFID@gerrit.hyperledger.org:hooks/commit-msg fabric/.git/hooks/
 
 #### Note:
-Of course, you would want to replace LFID with your own [Linux Foundation ID](https://github.com/hyperledger/fabric/blob/master/docs/source/Gerrit/lf-account.md) .
+Of course, you would want to replace LFID with your own [Linux Foundation ID](https://identity.linuxfoundation.org) .
 
 ### Building the Fabric
 Once you have all the dependencies installed, and have cloned the repository, you can proceed to build and test the fabric.
