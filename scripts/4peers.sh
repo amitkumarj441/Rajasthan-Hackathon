@@ -11,7 +11,7 @@
 export GOROOT=/root/go
 export GOPATH=/root/git
 export HLDGPATH=$GOPATH/src/github.com/hyperledger/fabric/build/bin
-export CCROOT=/root/humanity
+export CCROOT=/root/manhood
 
 RED='\033[0;31m'
 CYAN='\033[0;36m'
@@ -32,8 +32,8 @@ then
 	rm -rf /var/hyperledger/production
 	
 	echo Docker clean up:
-	docker stop $(docker ps -a -q)      #stop all containers
-	docker rm $(docker ps -a -q)		#remove all containers
+	docker stop $(docker ps -a -q)      				#stop all containers
+	docker rm $(docker ps -a -q)					#remove all containers
 	docker rmi $(docker images | grep dev-test) > /dev/null 2>&1    #remove all dev-test images 
 
     TIMESTAMP=$(date +%d-%m-%Y-%H%M%S)
