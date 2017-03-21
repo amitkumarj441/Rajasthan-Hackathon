@@ -71,3 +71,18 @@ Of course, you would want to replace LFID with your own [Linux Foundation ID](ht
 
 ### Building the Fabric
 Once you have all the dependencies installed, and have cloned the repository, you can proceed to build and test the fabric.
+
+### Application Setup
+
+The codebase should be placed under /root directory. Once you set up the system, you can start the test script to verify the settings. `/tests/humanity_test.sh`
+
+You should get the following output: TESTS PASSED: 4/4
+
+Now you can start up your network of peers with [Manhood/Humanity}Coins chaincode to serve the backend of the application. `/scripts/4vpeers.sh`
+
+The backend of this application is running GoLang code on the 4 peer blockchain network on the mainframe, similar to IBM's High Security Bussiness Network. The chaincode itself will create users at the init method call. The user names are stored in a separate part of the database too, in order to get a random name for simulating the selection for a reward.
+
+## Use Cases 
+  - The front end application (a mobile app) can connect to this network via Rest API calls.
+  - Coffe bar rewards every 5th person coming in with a free drink with HumanityCoins greater than 1000 this week.
+  - To honour people, researcher, companies and government bodies for doing good to their communities.
