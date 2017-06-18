@@ -90,3 +90,5 @@ The backend of this application is running GoLang code on the 4 peer blockchain 
   - To honour people, researcher, companies and government bodies for doing good to their communities.
 
 ## Check Hackathon Presentation [Click here](https://github.com/amitkumarj441/Rajasthan-Hackathon/commit/c3ee7b878b7de64d17e8becc8451c2644861684f)
+
+Developed at [Rajasthan E-Governance Hackathon](https://rajasthan-hackathon.hackerearth.com/)
